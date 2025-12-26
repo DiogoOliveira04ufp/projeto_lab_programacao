@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+            $table->unsignedTinyInteger('role')->default(0);
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -34,6 +35,18 @@ return new class extends Migration
             $table->text('user_agent')->nullable();
             $table->longText('payload');
             $table->integer('last_activity')->index();
+        });
+
+        Schema::create('animais', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->date('data_nascimento')->nullable();
+            $table->string('especie');      // cao ou gato
+            $table->string('raca');
+            $table->string('historico');
+            $table->string('foto');
+            $table->float('peso', 8, 2)->default();
+            $table->timestamps();
         });
     }
 
