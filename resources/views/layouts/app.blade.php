@@ -15,6 +15,8 @@
       <a href="{{ route('doacoes') }}">Doações</a> |
       <a href="{{ route('avaliacoes') }}">Avaliações</a> |
       <a href="{{ route('contactos') }}">Contactos</a> |
+      <a href="{{ route('login') }}">Login</a> |
+      <a href="{{ route('registro') }}">Registar</a> |
     </nav>
     <hr>
   </header>

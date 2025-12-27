@@ -11,3 +11,5 @@ Route::view('/contactos', 'pages.contactos')->name('contactos');
 Route::view('/doacoes', 'pages.doacoes')->name('doacoes');
 Route::view('/avaliacoes', 'pages.avaliacoes')->name('avaliacoes');
 Route::view('/voluntarios', 'pages.voluntarios')->name('voluntarios');
+Route::view('/login', 'pages.login')->name('login');
+Route::view('/registro', 'pages.registro')->name('registro');
