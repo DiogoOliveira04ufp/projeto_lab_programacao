@@ -48,6 +48,14 @@ return new class extends Migration
             $table->float('peso', 8, 2)->default();
             $table->timestamps();
         });
+
+        Schema::create('avaliacoes', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedTinyInteger('pontuacao');
+            $table->string('comentario');
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -55,6 +63,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('avaliacoes');
+        Schema::dropIfExists('animais');
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
