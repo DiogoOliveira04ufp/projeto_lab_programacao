@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>@yield('title', 'Gatil')</title>
-  @vite(['resources/js/app.js'])
+  @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body>
 
@@ -13,12 +13,6 @@
   <main class="container main">
     @yield('content')
   </main>
-
-  <footer class="footer">
-    <div class="container">
-      <small>Gatil — Projeto Lab_Prog, UFP</small>
-    </div>
-  </footer>
 
 </body>
 </html>

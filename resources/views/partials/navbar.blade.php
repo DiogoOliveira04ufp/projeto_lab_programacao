@@ -1,16 +1,25 @@
 <nav class="navbar">
   <div class="container navbar-inner">
-    <a class="brand" href="{{ route('home') }}">Gatil</a>
+     <a class="brand" href="{{ route('home') }}">
+       Gatil Arca d’Água
+     </a>
 
     <div class="nav">
-      <a href="{{ route('home') }}">Home</a>
       <a href="{{ route('quem_somos') }}">Quem Somos</a>
-      <a href="{{ route('gatos') }}">Gatos</a>
+      <a href="{{ route('gatos') }}">Adotar</a>
       <a href="{{ route('doacoes') }}">Doações</a>
+      <a href="{{ route('voluntarios') }}">Voluntários</a>
       <a href="{{ route('avaliacoes') }}">Avaliações</a>
       <a href="{{ route('contactos') }}">Contactos</a>
-      <a href="{{ route('login') }}">Login</a>
-      <a href="{{ route('registro') }}">Registo</a>
+
+      @auth
+        <form method="POST" action="{{ route('logout') }}" style="display:inline;">
+          @csrf
+          <button type="submit" class="btn btn-outline">Sair</button>
+        </form>
+      @else
+        <a href="{{ route('login') }}">Login</a>
+      @endauth
     </div>
   </div>
 </nav>
