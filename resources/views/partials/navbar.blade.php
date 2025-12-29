@@ -1,10 +1,12 @@
 <nav class="navbar">
   <div class="container navbar-inner">
-    <a class="brand" href="{{ route('home') }}">Gatil</a>
+     <a class="brand" href="{{ route('home') }}">
+       Gatil Arca d’Água
+     </a>
 
     <div class="nav">
       <a href="{{ route('quem_somos') }}">Quem Somos</a>
-      <a href="{{ route('gatos') }}">Gatos</a>
+      <a href="{{ route('gatos') }}">Adotar</a>
       <a href="{{ route('doacoes') }}">Doações</a>
       <a href="{{ route('avaliacoes') }}">Avaliações</a>
       <a href="{{ route('contactos') }}">Contactos</a>

@@ -3,58 +3,89 @@
 @section('title', 'Home')
 
 @section('content')
-  <section class="hero">
-    <h1>Bem-vindo ao Gatil</h1>
-    <p>
-      Somos uma associação dedicada ao resgate, cuidado e adoção responsável de gatos.
-      Aqui encontras gatos disponíveis, formas de ajudar e os nossos contactos.
-    </p>
+  {{-- HERO --}}
+  <div class="hero hero-home">
+     <div>
+       <h1>Bem-vindo ao Gatil Arca d’Água</h1>
 
-    <div class="actions">
-      <a class="btn btn-primary" href="{{ route('gatos') }}">Ver gatos disponíveis</a>
-      <a class="btn btn-outline" href="{{ route('doacoes') }}">Apoiar com doação</a>
-    </div>
-  </section>
+       <p>
+         Somos uma associação dedicada ao resgate, cuidado e adoção responsável
+         de gatos abandonados. Aqui podes conhecer os gatos disponíveis,
+         apoiar com doações e entrar em contacto connosco.
+       </p>
 
-  <section class="grid">
-    <div class="card">
-      <h3>Quem somos</h3>
+       <div class="actions">
+         <a href="{{ route('gatos') }}" class="btn btn-primary">
+           Ver gatos disponíveis
+         </a>
+         <a href="{{ route('doacoes') }}" class="btn btn-outline">
+           Apoiar com doação
+         </a>
+       </div>
+     </div>
+
+     <div class="hero-right">
+       <img src="{{ asset('img/logo.jpg') }}" alt="Gatil Arca d’Água">
+     </div>
+  </div>
+
+  {{-- O QUE FAZEMOS --}}
+  <section class="grid mt-16">
+    <article class="card">
+      <h3>Resgate e acolhimento</h3>
       <p>
-        Acolhemos gatos abandonados, garantimos cuidados veterinários e procuramos famílias responsáveis.
+        Resgatamos gatos em situação de abandono ou risco e garantimos um espaço seguro até serem adotados.
       </p>
       <a class="btn btn-outline" href="{{ route('quem_somos') }}">Saber mais</a>
-    </div>
+    </article>
 
-    <div class="card">
-      <h3>Gatos disponíveis</h3>
+    <article class="card">
+      <h3>Cuidados veterinários</h3>
       <p>
-        Conhece os nossos gatos prontos para adoção e vê a história de cada um.
+        Sempre que possível, garantimos avaliação veterinária, vacinação, desparasitação e esterilização.
+      </p>
+      <a class="btn btn-outline" href="{{ route('doacoes') }}">Ver como ajudar</a>
+    </article>
+
+    <article class="card">
+      <h3>Adoção responsável</h3>
+      <p>
+        Procuramos famílias conscientes e acompanhamos o processo para reduzir devoluções e abandono.
       </p>
       <a class="btn btn-outline" href="{{ route('gatos') }}">Ver lista</a>
-    </div>
+    </article>
+  </section>
 
-    <div class="card">
-      <h3>Contactos</h3>
+  {{-- COMO PODES AJUDAR --}}
+  <section class="grid mt-16">
+    <article class="card span-2 success">
+      <h3>Como podes ajudar</h3>
       <p>
-        Tens dúvidas ou queres ser voluntário? Fala connosco.
+        Mesmo que não possas adotar, podes apoiar o nosso trabalho de várias formas:
+        doações, voluntariado, divulgação e entrega de materiais (ração, areia, medicamentos).
       </p>
-      <a class="btn btn-outline" href="{{ route('contactos') }}">Contactar</a>
-    </div>
 
-    <div class="card success span-2">
-      <h3>Doações</h3>
-      <p>
-        As doações ajudam em alimentação, tratamentos e melhores condições no abrigo.
-      </p>
-      <a class="btn btn-success" href="{{ route('doacoes') }}">Fazer doação</a>
-    </div>
+      <div class="actions">
+        <a class="btn btn-success" href="{{ route('doacoes') }}">Fazer doação</a>
+        <a class="btn btn-outline" href="{{ route('contactos') }}">Falar connosco</a>
+      </div>
+    </article>
 
-    <div class="card">
+    <article class="card">
       <h3>Avaliações</h3>
       <p>
-        Feedback de quem adotou e acompanhou o nosso trabalho.
+        Feedback de quem adotou e acompanhou o nosso trabalho. Transparência conta.
       </p>
       <a class="btn btn-outline" href="{{ route('avaliacoes') }}">Ver avaliações</a>
-    </div>
+    </article>
+  </section>
+
+  {{-- FRASE FINAL --}}
+  <section class="hero mt-16">
+    <h2 style="margin:0 0 8px; font-size:22px;">Transparência e bem-estar animal</h2>
+    <p style="margin:0; max-width: 820px;">
+      Cada adoção é uma responsabilidade. O nosso foco é garantir condições dignas e encontrar famílias
+      preparadas para um compromisso real.
+    </p>
   </section>
 @endsection

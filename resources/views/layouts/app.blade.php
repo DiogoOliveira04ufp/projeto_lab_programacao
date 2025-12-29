@@ -14,11 +14,5 @@
     @yield('content')
   </main>
 
-  <footer class="footer">
-    <div class="container">
-      <small>Gatil — Projeto Lab_Prog, UFP</small>
-    </div>
-  </footer>
-
 </body>
 </html>
