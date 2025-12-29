@@ -10,13 +10,13 @@
 
   @include('partials.navbar')
 
-  <main class="container py-4">
+  <main class="container main">
     @yield('content')
   </main>
 
-  <footer class="border-top">
-    <div class="container py-3">
-      <small class="text-muted">Gatil — Projeto Lab_Prog, UFP</small>
+  <footer class="footer">
+    <div class="container">
+      <small>Gatil — Projeto Lab_Prog, UFP</small>
     </div>
   </footer>
 
