@@ -18,7 +18,7 @@
          <a href="{{ route('gatos') }}" class="btn btn-primary">
            Ver gatos disponíveis
          </a>
-         <a href="{{ route('doacoes') }}" class="btn btn-outline">
+         <a href="{{ route('doacoes') }}" class="btn btn-success">
            Apoiar com doação
          </a>
        </div>
@@ -80,10 +80,10 @@
     </article>
   </section>
 
-  {{-- FRASE FINAL --}}
+  {{-- FRASE FINAL (sem inline styles, visual igual) --}}
   <section class="hero mt-16">
-    <h2 style="margin:0 0 8px; font-size:22px;">Transparência e bem-estar animal</h2>
-    <p style="margin:0; max-width: 820px;">
+    <h2 class="section-title">Transparência e bem-estar animal</h2>
+    <p class="section-text">
       Cada adoção é uma responsabilidade. O nosso foco é garantir condições dignas e encontrar famílias
       preparadas para um compromisso real.
     </p>

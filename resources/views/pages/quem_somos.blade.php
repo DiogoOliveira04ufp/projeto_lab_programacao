@@ -13,7 +13,7 @@
 
       <div class="actions">
         <a class="btn btn-primary" href="{{ route('gatos') }}">Ver gatos disponíveis</a>
-        <a class="btn btn-outline" href="{{ route('doacoes') }}">Apoiar com doação</a>
+        <a class="btn btn-success" href="{{ route('doacoes') }}">Apoiar com doação</a>
       </div>
     </div>
 
@@ -33,7 +33,6 @@
       <h3>O que defendemos</h3>
       <p>
         Bem-estar animal em primeiro lugar, transparência, responsabilidade e adoção consciente.
-        Preferimos processos bem feitos do que “despachar” adoções.
       </p>
     </article>
 
@@ -63,13 +62,14 @@
 
     <div class="actions">
       <a class="btn btn-success" href="{{ route('contactos') }}">Contactar</a>
-      <a class="btn btn-outline" href="{{ route('voluntarios') }}">Ser voluntário</a>
+      <a class="btn btn-success2" href="{{ route('voluntarios') }}">Ser voluntário</a>
     </div>
   </section>
 
+  {{-- SECÇÃO FINAL (sem inline styles, visual igual) --}}
   <section class="hero mt-16">
-    <h2 style="margin:0 0 8px; font-size:22px;">Transparência acima de tudo</h2>
-    <p style="margin:0; max-width: 820px;">
+    <h2 class="section-title">Transparência acima de tudo</h2>
+    <p class="section-text">
       O nosso trabalho depende de confiança. Preferimos explicar exatamente o que fazemos, como fazemos,
       e o que precisamos — sem histórias inventadas.
     </p>
