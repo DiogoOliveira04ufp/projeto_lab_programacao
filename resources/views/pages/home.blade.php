@@ -76,7 +76,9 @@
       <p>
         Feedback de quem adotou e acompanhou o nosso trabalho. Transparência conta.
       </p>
-      <a class="btn btn-outline" href="{{ route('avaliacoes') }}">Ver avaliações</a>
+      <a class="btn btn-outline" href="{{ route('avaliacoes.index') }}">
+        Ver avaliações
+      </a>
     </article>
   </section>
 

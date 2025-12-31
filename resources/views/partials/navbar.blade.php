@@ -9,7 +9,7 @@
       <a href="{{ route('gatos') }}">Adotar</a>
       <a href="{{ route('doacoes') }}">Doações</a>
       <a href="{{ route('voluntarios') }}">Voluntários</a>
-      <a href="{{ route('avaliacoes') }}">Avaliações</a>
+      <a href="{{ route('avaliacoes.index') }}">Ver avaliações</a>
       <a href="{{ route('contactos') }}">Contactos</a>
 
       @auth
