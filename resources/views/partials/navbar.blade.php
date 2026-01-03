@@ -9,8 +9,9 @@
       <a href="{{ route('gatos') }}">Adotar</a>
       <a href="{{ route('doacoes') }}">Doações</a>
       <a href="{{ route('voluntarios') }}">Voluntários</a>
-      <a href="{{ route('avaliacoes.index') }}">Ver avaliações</a>
+      <a href="{{ route('avaliacoes.index') }}">Avaliações</a>
       <a href="{{ route('contactos') }}">Contactos</a>
+      <a href="{{ route('admin') }}">Admin</a>
 
       @auth
         <form method="POST" action="{{ route('logout') }}" style="display:inline;">
