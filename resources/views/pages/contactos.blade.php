@@ -62,8 +62,8 @@
       <p>
         Segunda a Sábado das 9:00 - 20:00 
       </p>
-      <p style="margin:0; color: var(--muted);">
-        Hórarios especiais, contactar primeiro
+      <p class="m-0 muted">
+        Horários especiais, contactar primeiro
       </p>
     </article>
   </section>

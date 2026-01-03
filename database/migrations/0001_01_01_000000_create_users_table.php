@@ -43,9 +43,9 @@ return new class extends Migration
             $table->date('data_nascimento')->nullable();
             $table->string('especie');      // cao ou gato
             $table->string('raca');
-            $table->string('historico');
-            $table->string('foto');
-            $table->float('peso', 8, 2)->default();
+            $table->text('historico');
+            $table->string('foto')->nullable();
+            $table->float('peso', 8, 2)->default(0);
             $table->timestamps();
         });
 

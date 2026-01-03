@@ -9,8 +9,20 @@ class AvaliacaoController extends Controller
 {
     public function index()
     {
-        $avaliacoes = Avaliacao::with('user')->latest()->paginate(10);
-        return view('pages.avaliacoes', compact('avaliacoes'));
+        $avaliacoes = Avaliacao::with('user')
+            ->latest()
+            ->paginate(10);
+
+        $totalAvaliacoes = Avaliacao::count();
+        $mediaPontuacao = $totalAvaliacoes > 0
+            ? round(Avaliacao::avg('pontuacao'), 1)
+            : null;
+
+        return view('pages.avaliacoes', [
+            'avaliacoes' => $avaliacoes,
+            'totalAvaliacoes' => $totalAvaliacoes,
+            'mediaPontuacao' => $mediaPontuacao,
+        ]);
     }
 
     public function store(Request $request)
@@ -24,6 +36,8 @@ class AvaliacaoController extends Controller
 
         Avaliacao::create($data);
 
-        return redirect()->route('avaliacoes.index')->with('success', 'Comentário adicionado.');
+        return redirect()
+            ->route('avaliacoes.index')
+            ->with('success', 'Comentário adicionado.');
     }
 }

@@ -67,7 +67,7 @@
 
       <div class="actions">
         <a class="btn btn-success" href="{{ route('doacoes') }}">Fazer doação</a>
-        <a class="btn btn-outline" href="{{ route('contactos') }}">Falar connosco</a>
+        <a class="btn btn-success2" href="{{ route('contactos') }}">Falar connosco</a>
       </div>
     </article>
 
