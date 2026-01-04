@@ -11,7 +11,12 @@
       <a href="{{ route('voluntarios') }}">Voluntários</a>
       <a href="{{ route('avaliacoes.index') }}">Avaliações</a>
       <a href="{{ route('contactos') }}">Contactos</a>
-      <a href="{{ route('admin') }}">Admin</a>
+      
+      @auth
+        @if(in_array(auth()->user()->role, [1, 2]))
+          <a href="{{ route('admin') }}">Admin</a>
+        @endif
+      @endauth
 
       @auth
         <form method="POST" action="{{ route('logout') }}" style="display:inline;">
