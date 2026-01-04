@@ -43,4 +43,12 @@ Route::middleware('auth')->group(function () {
        ->name('admin.users.updateRole');
 });
 
+Route::post('/admin/gatos', [App\Http\Controllers\AdminController::class, 'storeAnimal'])
+    ->name('admin.gatos.store')
+    ->middleware('auth');
+
+Route::delete('/admin/gatos/{animal}', [App\Http\Controllers\AdminController::class, 'destroyAnimal'])
+    ->name('admin.gatos.destroy')
+    ->middleware('auth');
+
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
