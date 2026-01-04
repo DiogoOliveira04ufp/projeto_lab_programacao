@@ -11,9 +11,9 @@
       <a href="{{ route('voluntarios') }}">Voluntários</a>
       <a href="{{ route('avaliacoes.index') }}">Avaliações</a>
       <a href="{{ route('contactos') }}">Contactos</a>
-      
+
       @auth
-        @if(in_array(auth()->user()->role, [1, 2]))
+        @if(auth()->user()->role === 1)
           <a href="{{ route('admin') }}">Admin</a>
         @endif
       @endauth

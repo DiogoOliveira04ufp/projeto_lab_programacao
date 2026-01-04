@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvaliacaoController;
+use App\Http\Controllers\AdminController;
 
 Route::redirect('/', '/home');
 
@@ -36,5 +37,10 @@ Route::get('/admin', [App\Http\Controllers\AdminController::class, 'index'])
 Route::delete('/admin/users/{user}', [App\Http\Controllers\AdminController::class, 'destroy'])
     ->name('admin.users.destroy')
     ->middleware('auth');
+
+Route::middleware('auth')->group(function () {
+  Route::patch('admin/users/{user}/role', [AdminController::class, 'updateRole'])
+       ->name('admin.users.updateRole');
+});
 
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');

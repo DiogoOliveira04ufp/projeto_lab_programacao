@@ -26,6 +26,15 @@
             <td>{{ $u->role }}</td>
             <td>{{ $u->created_at->format('Y-m-d') }}</td>
             <td>
+              <form action="{{ route('admin.users.updateRole', $u) }}" method="POST" style="display:inline;">
+                @csrf
+                @method('PATCH')
+                <select name="role" onchange="this.form.submit()">
+                  <option value="0" {{ $u->role == 0 ? 'selected' : '' }}>Utilizador</option>
+                  <option value="1" {{ $u->role == 1 ? 'selected' : '' }}>Admin</option>
+                </select>
+              </form>
+
               <form action="{{ route('admin.users.destroy', $u->id) }}" method="POST" onsubmit="return confirm('Eliminar este utilizador?');" style="display:inline">
                 @csrf
                 @method('DELETE')
