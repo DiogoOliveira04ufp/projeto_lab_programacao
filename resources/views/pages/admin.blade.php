@@ -80,7 +80,7 @@
           <th style="padding:8px;">Nome</th>
           <th style="padding:8px;">Raça</th>
           <th style="padding:8px;">Peso</th>
-          <th style="padding:8px;">Criado</th>
+          <th style="padding:8px;">Data de Nascimento</th>
           <th style="padding:8px;">Ações</th>
         </tr>
       </thead>
@@ -91,7 +91,7 @@
             <td style="padding:8px;">{{ $g->name }}</td>
             <td style="padding:8px;">{{ $g->raca }}</td>
             <td style="padding:8px;">{{ $g->peso }}</td>
-            <td style="padding:8px;">{{ $g->created_at->format('Y-m-d') }}</td>
+            <td style="padding:8px;">{{ $g->data_nascimento }}</td>
             <td style="padding:8px;">
               <form
                 action="{{ route('admin.gatos.destroy', $g->id) }}"

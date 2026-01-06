@@ -51,4 +51,12 @@ Route::delete('/admin/gatos/{animal}', [App\Http\Controllers\AdminController::cl
     ->name('admin.gatos.destroy')
     ->middleware('auth');
 
+Route::get('/gatos', function () {
+    $gatos = \App\Models\Animal::where('especie', 'gato')
+               ->orderBy('created_at', 'desc')
+               ->get();
+
+    return view('pages.gatos', compact('gatos'));
+})->name('gatos');
+
 Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth')->name('logout');
