@@ -37,6 +37,7 @@ class DonationController extends Controller
                     ],
                 ],
             ]],
+            // util se mais tarde quiser guardar a doaçao
             'success_url' => route('doacoes.success') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url'  => route('doacoes.cancel'),
         ]);

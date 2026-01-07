@@ -62,7 +62,7 @@
     </p>
   </section>
 
-      {{-- FORMULÁRIO DE VOLUNTARIADO --}}
+  {{-- FORMULÁRIO DE VOLUNTARIADO --}}
   <section id="voluntariado-form" class="hero mt-16">
     <h2 class="section-title">Quero voluntariar-me</h2>
 
