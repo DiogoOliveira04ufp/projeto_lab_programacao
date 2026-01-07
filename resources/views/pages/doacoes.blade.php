@@ -22,10 +22,40 @@
     <article class="card">
       <h3>Doação monetária</h3>
       <p>
-        Se quiseres apoiar com dinheiro, combina connosco a melhor forma (MB Way, transferência, etc.).
+        Podes fazer uma doação rápida e segura através da Stripe.
       </p>
-      <a class="btn btn-outline" href="{{ route('contactos') }}">Pedir dados para doação</a>
+    
+      <div class="actions">
+        <form method="POST" action="{{ route('doacoes.checkout') }}">
+          @csrf
+          <input type="hidden" name="amount" value="5">
+          <button class="btn btn-outline" type="submit">Doar 5€</button>
+        </form>
+    
+        <form method="POST" action="{{ route('doacoes.checkout') }}">
+          @csrf
+          <input type="hidden" name="amount" value="20">
+          <button class="btn btn-outline" type="submit">Doar 20€</button>
+        </form>
+    
+        <form method="POST" action="{{ route('doacoes.checkout') }}">
+          @csrf
+          <input type="hidden" name="amount" value="50">
+          <button class="btn btn-outline" type="submit">Doar 50€</button>
+        </form>
+    
+        <form method="POST" action="{{ route('doacoes.checkout') }}">
+          @csrf
+          <input type="hidden" name="amount" value="100">
+          <button class="btn btn-success1" type="submit">Doar 100€</button>
+        </form>
+      </div>
+    
+      <p class="m-0 muted mt-16">
+        <p>Pagamentos em modo de teste </p>
+      </p>
     </article>
+
 
     <article class="card">
       <h3>Materiais</h3>
