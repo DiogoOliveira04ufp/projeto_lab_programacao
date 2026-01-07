@@ -4,14 +4,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ContactController;
 
 Route::redirect('/', '/home');
 
 Route::view('/home', 'pages.home')->name('home');
 Route::view('/quem_somos', 'pages.quem_somos')->name('quem_somos');
-Route::view('/contactos', 'pages.contactos')->name('contactos');
 Route::view('/doacoes', 'pages.doacoes')->name('doacoes');
+Route::view('/contactos', 'pages.contactos')->name('contactos');
 Route::view('/voluntarios', 'pages.voluntarios')->name('voluntarios');
+// SMTP - mailtrap 
+Route::post('/voluntarios', [ContactController::class, 'send'])->name('voluntarios.send');
 
 /* AUTH */
 Route::middleware('guest')->group(function () {

@@ -22,13 +22,13 @@
     <article class="card">
       <h3>Email</h3>
       <p>Envia-nos mensagem por email.</p>
-      <a class="btn btn-outline" href="mailto:38107@ufp.edu.pt">38107@ufp.edu.pt</a>
+      <a class="btn btn-outline" href="mailto:38107@ufp.edu.pt">gatilArcaDAgua@ufp.edu.pt</a>
     </article>
 
     <article class="card">
       <h3>Telefone</h3>
       <p>Whatsapp</p>
-      <a class="btn btn-outline" href="tel:+351912767773">+351 912 767 773</a>
+      <a class="btn btn-outline" href="tel:+351912767773">+351 910 000 000</a>
     </article>
 
     <article class="card">
@@ -67,6 +67,7 @@
       </p>
     </article>
   </section>
+
 
   {{-- MAPA --}}
   <section class="hero mt-16">
