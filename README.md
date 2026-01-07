@@ -12,6 +12,7 @@ Atualmente, o projeto inclui:
 - Autenticação de utilizadores (login e registo)
 - Páginas informativas funcionais
 - Layout preparado para dados dinâmicos
+- Serviços Externos / API - SMTP e Stripe
 
 ---
 
@@ -24,8 +25,43 @@ Atualmente, o projeto inclui:
 - **Vite**
 - **Blade (templates)**
 - **CSS personalizado**
+- **SMTP (Mailtrap - ambiente de testes)**
+- **Stripe API (pagamentos em modo teste)**
 
 ---
+## Serviços Externos / API 
+
+### Envio de Emails (SMTP) 
+
+Esta funcionalidade é utilizada na página de Voluntariado, permitindo que os pedidos submetidos pelos utilizadores sejam enviados por email para a associação.
+
+Características:
+
+- Comunicação externa via servidor SMTP
+
+- Utilização do sistema de emails nativo do Laravel (Mailable)
+
+- Ambiente de teste seguro (emails não são enviados para destinatários reais)
+
+- Permite validar o fluxo completo de envio de mensagens
+
+
+## Doações Monetárias (Stripe)
+
+Foi integrada a plataforma Stripe para simular doações monetárias através do Stripe Checkout, em modo de teste.
+
+Na página de Doações, o utilizador pode selecionar valores predefinidos e é redirecionado para a página oficial de pagamento da Stripe.
+Após a simulação do pagamento, o utilizador regressa à aplicação com uma confirmação de sucesso ou cancelamento.
+
+Características:
+
+- Integração com API externa de pagamentos
+
+- Utilização do Stripe Checkout (página hosted)
+
+- Pagamentos simulados (cartões de teste)
+
+- Fluxo completo: aplicação → Stripe → aplicação
 
 ## Estrutura do Projeto
 
@@ -86,12 +122,6 @@ Aceder no browser:
 ```bash 
 http://127.0.0.1:8000
 ```
-## Notas
 
-O projeto utiliza autenticação (login e registo).
-
-O CSS é personalizado (não utiliza frameworks externos).
-
-As imagens devem estar localizadas na pasta public/img/.
 
    

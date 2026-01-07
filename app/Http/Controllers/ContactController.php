@@ -10,7 +10,7 @@ class ContactController extends Controller
 {
     public function show()
     {
-        // o formulário agora está em /voluntarios
+    
         return view('pages.voluntarios');
     }
 
@@ -28,6 +28,8 @@ class ContactController extends Controller
         // destino (capturado no Mailtrap)
         $destino = config('mail.from.address');
 
+
+        // chama o envio do email
         Mail::to($destino)->send(new ContactMail($data));
 
         return back()->with('success', 'Pedido de voluntariado enviado com sucesso!');
