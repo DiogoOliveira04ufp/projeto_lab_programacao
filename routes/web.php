@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Models\User;
+
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\AdminController;
@@ -56,6 +58,24 @@ Route::post('/avaliacoes', [AvaliacaoController::class, 'store'])
 Route::post('/logout', [AuthController::class, 'logout'])
     ->middleware('auth')
     ->name('logout');
+
+/* ÁREA DE VOLUNTÁRIOS (admin + voluntários) */
+Route::get('/area-voluntarios', function () {
+    // tem de estar autenticado
+    if (!auth()->check()) {
+        abort(403);
+    }
+
+    $role = (int) auth()->user()->role;
+
+    // apenas admin (1) ou voluntário (2)
+    if (!in_array($role, [User::ROLE_ADMIN, User::ROLE_VOLUNTARIO])) {
+        abort(403);
+    }
+
+    return view('pages.area_voluntarios');
+})->middleware('auth')->name('voluntarios.area');
+
 
 /* ADMIN */
 Route::middleware('auth')->group(function () {

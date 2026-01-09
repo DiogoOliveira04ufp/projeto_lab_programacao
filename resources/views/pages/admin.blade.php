@@ -47,6 +47,7 @@
                 <select name="role" onchange="this.form.submit()">
                   <option value="0" {{ $u->role == 0 ? 'selected' : '' }}>Utilizador</option>
                   <option value="1" {{ $u->role == 1 ? 'selected' : '' }}>Admin</option>
+                  <option value="2" {{ (int)$u->role === 2 ? 'selected' : '' }}>Voluntário</option>
                 </select>
               </form>
             </td>

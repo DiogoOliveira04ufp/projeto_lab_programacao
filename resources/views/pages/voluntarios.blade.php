@@ -11,12 +11,7 @@
       Se não tens disponibilidade fixa, também dá para ajudar pontualmente.
     </p>
 
-    {{-- FEEDBACK --}}
-    @if (session('success'))
-      <div class="card mt-16">
-        <strong>{{ session('success') }}</strong>
-      </div>
-    @endif
+
 
     @if ($errors->any())
       <div class="card mt-16">
