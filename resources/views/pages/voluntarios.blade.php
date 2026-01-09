@@ -57,6 +57,21 @@
     </p>
   </section>
 
+  {{--  Área de Voluntarios--}}
+  @if(auth()->check() && (auth()->user()->isVolunteer() || auth()->user()->isAdmin()))
+  <div class="card mt-16">
+    <h2 class="section-title">Área do Voluntário</h2>
+    <p class="muted mt-8">
+      Aqui podes acompanhar os teus pedidos, informações internas e comunicações do gatil.
+    </p>
+
+    <a href="{{ route('voluntarios.area') }}" class="btn btn-success">
+      Entrar na Área de Voluntários
+    </a>
+  </div>
+  @endif
+
+
   {{-- FORMULÁRIO DE VOLUNTARIADO --}}
   <section id="voluntariado-form" class="hero mt-16">
     <h2 class="section-title">Quero voluntariar-me</h2>
