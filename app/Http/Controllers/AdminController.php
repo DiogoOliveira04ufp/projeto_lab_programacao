@@ -49,25 +49,30 @@ class AdminController extends Controller
 
     public function updateRole(Request $request, User $user)
     {
-        // Só Admin (role=1) pode alterar roles
-        if (!auth()->check() || (int) auth()->user()->role !== User::ROLE_ADMIN) {
+        if (auth()->user()->role !== 1) {
             abort(403);
         }
 
-        // Aceitar: 0 (user), 1 (admin), 2 (voluntário)
         $data = $request->validate([
-            'role' => ['required', 'integer', 'in:0,1,2'],
+            'role' => 'required|integer|in:0,1,2',
         ]);
-
-        // Impedir que o admin se auto-remova de Admin sem querer
-        if ((int) auth()->id() === (int) $user->id && (int) $data['role'] !== User::ROLE_ADMIN) {
-            return back()->with('error', 'Não podes remover o teu próprio papel de Admin.');
-        }
 
         $user->role = (int) $data['role'];
         $user->save();
 
-        return back()->with('success', 'Papel atualizado com sucesso.');
+        $nomeDoPapel = $this->getRoleName($user->role);
+
+       return back()->with('status', "O utilizador {$user->name} agora é {$nomeDoPapel}.");
+    }
+
+    private function getRoleName($role)
+    {
+    return match($role) {
+        1 => 'Administrador',
+        2 => 'Voluntário',
+        0 => 'Utilizador Comum',
+        default => 'Desconhecido',
+    };
     }
 
     public function storeAnimal(Request $request)

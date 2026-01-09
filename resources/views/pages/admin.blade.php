@@ -4,6 +4,28 @@
 
 @section('content')
 
+         @if(session('success'))
+            <div style="background: #d4edda; color: #1b7a31ff; padding: 15px; border-radius: 8px; border: 1px solid #c3e6cb; margin-bottom: 10px;">
+             <strong>✅ Sucesso:</strong> {{ session('success') }}
+            </div>
+        @endif
+
+
+        @if(session('error'))
+          <div style="background: #f8d7da; color: #942631ff; padding: 15px; border-radius: 8px; border: 1px solid #f5c6cb; margin-bottom: 10px;">
+            <strong>❌ Erro:</strong> {{ session('error') }}
+          </div>
+        @endif
+
+
+        @if(session('status'))
+          <div style="background: #d1ecf1; color: #106a7aff; padding: 15px; border-radius: 8px; border: 1px solid #bee5eb; margin-bottom: 10px;">
+            <strong>🔃 Atualização :</strong> {{ session('status') }}
+          </div>
+        @endif
+
+
+
   {{-- TOPO --}}
   <section class="hero">
     <h1 class="section-title">Área de Administração</h1>
@@ -41,15 +63,19 @@
             <td style="padding:10px;">{{ $u->name }}</td>
             <td style="padding:10px;">{{ $u->email }}</td>
             <td style="padding:10px;">
-              <form action="{{ route('admin.users.updateRole', $u) }}" method="POST">
-                @csrf
-                @method('PATCH')
-                <select name="role" onchange="this.form.submit()">
-                  <option value="0" {{ $u->role == 0 ? 'selected' : '' }}>Utilizador</option>
-                  <option value="1" {{ $u->role == 1 ? 'selected' : '' }}>Admin</option>
-                  <option value="2" {{ (int)$u->role === 2 ? 'selected' : '' }}>Voluntário</option>
-                </select>
-              </form>
+                @if(auth()->id() !== $u->id)
+                    <form action="{{ route('admin.users.updateRole', $u) }}" method="POST">
+                    @csrf
+                    @method('PATCH')
+                        <select name="role" onchange="this.form.submit()">
+                            <option value="0" {{ $u->role == 0 ? 'selected' : '' }}>Utilizador</option>
+                            <option value="1" {{ $u->role == 1 ? 'selected' : '' }}>Admin</option>
+                            <option value="2" {{ $u->role == 2 ? 'selected' : '' }}>Voluntario</option>
+                        </select>
+                    </form>
+                @else
+                <span style="font-weight: bold; color: #145b8aff;">Administrador </span>
+                @endif
             </td>
             <td style="padding:10px;">{{ $u->created_at->format('Y-m-d') }}</td>
             <td style="padding:10px;">
@@ -142,7 +168,11 @@
 
       <div class="field">
         <span>Data de nascimento</span>
-        <input type="date" name="data_nascimento">
+        <input type="date" 
+               name="data_nascimento"
+               max="{{ date('Y-m-d') }}"
+               min="{{ date('Y-m-d', strtotime('-50 years')) }}" 
+        >
       </div>
 
       <div class="field">
