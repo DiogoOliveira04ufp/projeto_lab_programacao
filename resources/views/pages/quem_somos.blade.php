@@ -20,6 +20,19 @@
     <img class="about-img" src="{{ asset('img/cat2.jpg') }}" alt="Gato do gatil">
   </section>
 
+    <section class="card mt-16">
+    <h3>Voluntariado e apoio</h3>
+    <p>
+      Precisamos de ajuda com tarefas no espaço, transportes, divulgação e recolha de materiais
+      (ração, areia, medicamentos). Se quiseres contribuir, fala connosco.
+    </p>
+
+    <div class="actions">
+      <a class="btn btn-success" href="{{ route('contactos') }}">Contactar</a>
+      <a class="btn btn-success2" href="{{ route('voluntarios') }}">Ser voluntário</a>
+    </div>
+  </section>
+
   <section class="about-grid">
     <article class="card">
       <h3>A nossa missão</h3>
@@ -53,18 +66,6 @@
     </article>
   </section>
 
-  <section class="card mt-16">
-    <h3>Voluntariado e apoio</h3>
-    <p>
-      Precisamos de ajuda com tarefas no espaço, transportes, divulgação e recolha de materiais
-      (ração, areia, medicamentos). Se quiseres contribuir, fala connosco.
-    </p>
-
-    <div class="actions">
-      <a class="btn btn-success" href="{{ route('contactos') }}">Contactar</a>
-      <a class="btn btn-success2" href="{{ route('voluntarios') }}">Ser voluntário</a>
-    </div>
-  </section>
 
   {{-- SECÇÃO FINAL (sem inline styles, visual igual) --}}
   <section class="hero mt-16">

@@ -6,8 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-// define como vai ser o email
-class ContactMail extends Mailable
+class VolunteerConfirmationMail extends Mailable
 {
     use Queueable, SerializesModels;
 
@@ -19,10 +18,10 @@ class ContactMail extends Mailable
     }
 
     public function build()
-{
-    return $this
-        ->from(config('mail.from.address'), config('mail.from.name'))
-        ->subject('Novo contacto: Pedido de voluntariado')
-        ->view('emails.contact');
-}
+    {
+        return $this
+            ->from(config('mail.from.address'), config('mail.from.name'))
+            ->subject('Recebemos o teu pedido de voluntariado')
+            ->view('emails.volunteer_confirmation');
+    }
 }

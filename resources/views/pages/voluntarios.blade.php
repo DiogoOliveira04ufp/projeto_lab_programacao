@@ -11,12 +11,7 @@
       Se não tens disponibilidade fixa, também dá para ajudar pontualmente.
     </p>
 
-    {{-- FEEDBACK --}}
-    @if (session('success'))
-      <div class="card mt-16">
-        <strong>{{ session('success') }}</strong>
-      </div>
-    @endif
+
 
     @if ($errors->any())
       <div class="card mt-16">
@@ -62,6 +57,21 @@
     </p>
   </section>
 
+  {{--  Área de Voluntarios--}}
+  @if(auth()->check() && (auth()->user()->isVolunteer() || auth()->user()->isAdmin()))
+  <div class="card mt-16">
+    <h2 class="section-title">Área do Voluntário</h2>
+    <p class="muted mt-8">
+      Aqui podes acompanhar os teus pedidos, informações internas e comunicações do gatil.
+    </p>
+
+    <a href="{{ route('voluntarios.area') }}" class="btn btn-success">
+      Entrar na Área de Voluntários
+    </a>
+  </div>
+  @endif
+
+
   {{-- FORMULÁRIO DE VOLUNTARIADO --}}
   <section id="voluntariado-form" class="hero mt-16">
     <h2 class="section-title">Quero voluntariar-me</h2>
@@ -91,12 +101,12 @@
       <div class="grid">
         <article class="card">
           <label>Nome</label>
-          <input name="nome" value="{{ old('nome') }}" required>
+          <input name="nome" value="{{ old('nome', auth()->user()->name ?? '') }}" readonly>
         </article>
 
         <article class="card">
           <label>Email</label>
-          <input type="email" name="email" value="{{ old('email') }}" required>
+          <input type="email" name="email" value="{{ old('email', auth()->user()->email ?? '') }}" readonly>
         </article>
 
         <article class="card span-2">

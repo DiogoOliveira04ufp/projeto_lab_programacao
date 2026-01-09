@@ -10,31 +10,41 @@ class AdminController extends Controller
 {
     public function index()
     {
-        if (!in_array(auth()->user()->role, [1, 2])) {
+        // Só Admin (role=1) pode ver o painel de admin
+        if (!auth()->check() || (int) auth()->user()->role !== User::ROLE_ADMIN) {
             abort(403);
         }
 
+        // Lista de utilizadores
         $users = User::orderBy('created_at', 'desc')->paginate(20);
+
+        // Lista de gatos (página independente para não misturar paginações)
         $gatos = Animal::where('especie', 'gato')
-                    ->orderBy('created_at', 'desc')
-                    ->paginate(20, ['*'], 'gatos_page');
+            ->orderBy('created_at', 'desc')
+            ->paginate(20, ['*'], 'gatos_page');
 
         return view('pages.admin', compact('users', 'gatos'));
     }
 
-    public function destroy(\App\Models\User $user)
+    public function destroy(User $user)
     {
-        if (!in_array(auth()->user()->role, [1, 2])) {
+        // Só Admin (role=1) pode eliminar utilizadores
+        if (!auth()->check() || (int) auth()->user()->role !== User::ROLE_ADMIN) {
             abort(403);
         }
 
-        if (auth()->id() === $user->id) {
-            return redirect()->route('admin')->with('error', 'Não podes eliminar o teu próprio utilizador.');
+        // Impedir que o admin apague o próprio utilizador
+        if ((int) auth()->id() === (int) $user->id) {
+            return redirect()
+                ->route('admin')
+                ->with('error', 'Não podes eliminar o teu próprio utilizador.');
         }
 
         $user->delete();
 
-        return redirect()->route('admin')->with('success', 'Utilizador eliminado com sucesso.');
+        return redirect()
+            ->route('admin')
+            ->with('success', 'Utilizador eliminado com sucesso.');
     }
 
     public function updateRole(Request $request, User $user)
@@ -44,49 +54,69 @@ class AdminController extends Controller
         }
 
         $data = $request->validate([
-            'role' => 'required|integer|in:0,1',
+            'role' => 'required|integer|in:0,1,2',
         ]);
 
         $user->role = (int) $data['role'];
         $user->save();
 
-        return back()->with('status', 'Papel atualizado com sucesso.');
+        $nomeDoPapel = $this->getRoleName($user->role);
+
+       return back()->with('status', "O utilizador {$user->name} agora é {$nomeDoPapel}.");
+    }
+
+    private function getRoleName($role)
+    {
+    return match($role) {
+        1 => 'Administrador',
+        2 => 'Voluntário',
+        0 => 'Utilizador Comum',
+        default => 'Desconhecido',
+    };
     }
 
     public function storeAnimal(Request $request)
     {
-        if (!in_array(auth()->user()->role, [1, 2])) {
+        // Só Admin (role=1) pode criar gatos
+        if (!auth()->check() || (int) auth()->user()->role !== User::ROLE_ADMIN) {
             abort(403);
         }
 
         $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'data_nascimento' => 'nullable|date',
-            'raca' => 'nullable|string|max:255',
-            'historico' => 'nullable|string',
-            'peso' => 'nullable|numeric|min:0',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'name' => ['required', 'string', 'max:255'],
+            'data_nascimento' => ['nullable', 'date'],
+            'raca' => ['nullable', 'string', 'max:255'],
+            'historico' => ['nullable', 'string'],
+            'peso' => ['nullable', 'numeric', 'min:0'],
+            'foto' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif'],
         ]);
 
+        // Este CRUD é só para gatos
         $data['especie'] = 'gato';
 
+        // Guardar foto no disk "public" (storage/app/public/...)
         if ($request->hasFile('foto')) {
             $data['foto'] = $request->file('foto')->store('gatos', 'public');
         }
 
         Animal::create($data);
 
-        return redirect()->route('admin')->with('success', 'Gato criado com sucesso.');
+        return redirect()
+            ->route('admin')
+            ->with('success', 'Gato criado com sucesso.');
     }
 
     public function destroyAnimal(Animal $animal)
     {
-        if (!in_array(auth()->user()->role, [1, 2])) {
+        // Só Admin (role=1) pode eliminar gatos
+        if (!auth()->check() || (int) auth()->user()->role !== User::ROLE_ADMIN) {
             abort(403);
         }
 
         $animal->delete();
 
-        return redirect()->route('admin')->with('success', 'Animal eliminado com sucesso.');
+        return redirect()
+            ->route('admin')
+            ->with('success', 'Animal eliminado com sucesso.');
     }
 }
