@@ -91,12 +91,12 @@
       <div class="grid">
         <article class="card">
           <label>Nome</label>
-          <input name="nome" value="{{ old('nome') }}" required>
+          <input name="nome" value="{{ old('nome', auth()->user()->name ?? '') }}" readonly>
         </article>
 
         <article class="card">
           <label>Email</label>
-          <input type="email" name="email" value="{{ old('email') }}" required>
+          <input type="email" name="email" value="{{ old('email', auth()->user()->email ?? '') }}" readonly>
         </article>
 
         <article class="card span-2">

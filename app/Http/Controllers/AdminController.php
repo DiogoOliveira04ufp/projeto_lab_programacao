@@ -65,7 +65,7 @@ class AdminController extends Controller
             'raca' => 'nullable|string|max:255',
             'historico' => 'nullable|string',
             'peso' => 'nullable|numeric|min:0',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png,gif',
         ]);
 
         $data['especie'] = 'gato';
