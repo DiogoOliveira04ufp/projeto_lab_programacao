@@ -9,6 +9,7 @@ use App\Http\Controllers\AdminVolunteerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\AdminDonationController;
+use App\Http\Controllers\DonationReceiptController;
 
 Route::redirect('/', '/home');
 
@@ -32,8 +33,17 @@ Route::get('/gatos', function () {
 Route::post('/doacoes/checkout', [DonationController::class, 'checkout'])
     ->middleware('auth')
     ->name('doacoes.checkout');
-Route::get('/doacoes/sucesso', [DonationController::class, 'success'])->name('doacoes.success');
-Route::get('/doacoes/cancelado', [DonationController::class, 'cancel'])->name('doacoes.cancel');
+
+Route::get('/doacoes/sucesso', [DonationController::class, 'success'])
+    ->name('doacoes.success');
+
+Route::get('/doacoes/cancelado', [DonationController::class, 'cancel'])
+    ->name('doacoes.cancel');
+
+/* RECIBO PDF (download) */
+Route::get('/doacoes/recibo/{donation}', [DonationReceiptController::class, 'download'])
+    ->middleware('auth')
+    ->name('doacoes.recibo');
 
 /* SMTP - mailtrap (submissão voluntariado) */
 Route::post('/voluntarios', [ContactController::class, 'send'])
@@ -96,9 +106,8 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     /* DOAÇÕES (ADMIN) */
     Route::get('/admin/doacoes', [AdminDonationController::class, 'index'])
-    ->name('admin.doacoes.index');
+        ->name('admin.doacoes.index');
 
     Route::get('/admin/doacoes/{donation}', [AdminDonationController::class, 'show'])
-    ->name('admin.doacoes.show');    
+        ->name('admin.doacoes.show');
 });
-

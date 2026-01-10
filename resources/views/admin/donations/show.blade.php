@@ -10,6 +10,10 @@
     <div class="actions">
       <a href="{{ route('admin.doacoes.index') }}" class="btn btn-outline">Voltar</a>
       <a href="{{ route('admin') }}" class="btn btn-outline">Admin</a>
+
+      <a href="{{ route('doacoes.recibo', $donation) }}" class="btn btn-outline">
+        Descarregar recibo (PDF)
+      </a>
     </div>
   </section>
 
