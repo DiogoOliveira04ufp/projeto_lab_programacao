@@ -30,11 +30,12 @@
   <section class="hero">
     <h1 class="section-title">Área de Administração</h1>
     <p class="section-text muted">
-      Gestão de utilizadores, gatos e pedidos de voluntariado.
+      Gestão de utilizadores, gatos, pedidos de voluntariado e doações.
     </p>
 
     <div class="actions">
-      <a href="{{ route('admin.voluntarios.index') }}" class="btn btn-outline"> Gerir Voluntários</a>
+      <a href="{{ route('admin.voluntarios.index') }}" class="btn btn-outline">Gerir Voluntários</a>
+      <a href="{{ route('admin.doacoes.index') }}" class="btn btn-outline">Gerir Doações</a>
     </div>
   </section>
 
@@ -168,10 +169,10 @@
 
       <div class="field">
         <span>Data de nascimento</span>
-        <input type="date" 
+        <input type="date"
                name="data_nascimento"
                max="{{ date('Y-m-d') }}"
-               min="{{ date('Y-m-d', strtotime('-50 years')) }}" 
+               min="{{ date('Y-m-d', strtotime('-50 years')) }}"
         >
       </div>
 

@@ -2,13 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 
-
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvaliacaoController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminVolunteerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DonationController;
+use App\Http\Controllers\AdminDonationController;
 
 Route::redirect('/', '/home');
 
@@ -93,5 +93,12 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::post('/admin/voluntarios/{id}', [AdminVolunteerController::class, 'update'])
         ->name('admin.voluntarios.update');
+
+    /* DOAÇÕES (ADMIN) */
+    Route::get('/admin/doacoes', [AdminDonationController::class, 'index'])
+    ->name('admin.doacoes.index');
+
+    Route::get('/admin/doacoes/{donation}', [AdminDonationController::class, 'show'])
+    ->name('admin.doacoes.show');    
 });
 
