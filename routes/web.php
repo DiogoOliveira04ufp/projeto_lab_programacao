@@ -30,7 +30,9 @@ Route::get('/gatos', function () {
 })->name('gatos');
 
 /* STRIPE TEST - pagamentos */
-Route::post('/doacoes/checkout', [DonationController::class, 'checkout'])->name('doacoes.checkout');
+Route::post('/doacoes/checkout', [DonationController::class, 'checkout'])
+    ->middleware('auth')
+    ->name('doacoes.checkout');
 Route::get('/doacoes/sucesso', [DonationController::class, 'success'])->name('doacoes.success');
 Route::get('/doacoes/cancelado', [DonationController::class, 'cancel'])->name('doacoes.cancel');
 

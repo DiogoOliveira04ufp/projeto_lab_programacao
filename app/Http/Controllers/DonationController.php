@@ -18,15 +18,22 @@ class DonationController extends Controller
             'amount' => ['required', 'integer', 'min:1', 'max:500'],
         ]);
 
-        $amountEur = $data['amount'];
+        $amountEur = (int) $data['amount'];
         $amountCents = $amountEur * 100;
 
         // 2) Definir a chave secreta da Stripe (modo teste)
         Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        // 3) Criar sessão do Checkout
+        // 3) Se estiver autenticado, preenche o email no checkout
+        $email = auth()->check() ? auth()->user()->email : null;
+
+        // 4) Criar sessão do Checkout
         $session = CheckoutSession::create([
             'mode' => 'payment',
+
+            // email pré-preenchido no Stripe Checkout (se houver user autenticado)
+            'customer_email' => $email,
+
             'line_items' => [[
                 'quantity' => 1,
                 'price_data' => [
@@ -42,7 +49,7 @@ class DonationController extends Controller
             'cancel_url'  => route('doacoes.cancel'),
         ]);
 
-        // 4) Ir para a página de pagamento da Stripe
+        // 5) Ir para a página de pagamento da Stripe
         return redirect()->away($session->url);
     }
 

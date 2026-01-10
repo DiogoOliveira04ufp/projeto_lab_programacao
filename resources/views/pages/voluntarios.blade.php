@@ -3,15 +3,13 @@
 @section('title', 'Voluntariado')
 
 @section('content')
-  {{-- HERO + FORMULÁRIO --}}
+  {{-- HERO --}}
   <section class="hero">
     <h1>Voluntariado</h1>
     <p>
       Precisamos de ajuda regular. Se tens tempo e responsabilidade, há sempre tarefas para fazer.
       Se não tens disponibilidade fixa, também dá para ajudar pontualmente.
     </p>
-
-
 
     @if ($errors->any())
       <div class="card mt-16">
@@ -23,7 +21,7 @@
         </ul>
       </div>
     @endif
-
+  </section>
 
   {{-- COMO PODES AJUDAR --}}
   <section class="grid mt-16">
@@ -57,68 +55,62 @@
     </p>
   </section>
 
-  {{--  Área de Voluntarios--}}
-  @if(auth()->check() && (auth()->user()->isVolunteer() || auth()->user()->isAdmin()))
-  <div class="card mt-16">
-    <h2 class="section-title">Área do Voluntário</h2>
-    <p class="muted mt-8">
-      Aqui podes acompanhar os teus pedidos, informações internas e comunicações do gatil.
-    </p>
+  {{-- FORMULÁRIO DE VOLUNTARIADO (só aparece se NÃO for voluntário) --}}
+  @if(!(auth()->check() && auth()->user()->isVolunteer()))
+    <section id="voluntariado-form" class="hero mt-16">
+      <h2 class="section-title">Quero voluntariar-me</h2>
 
-    <a href="{{ route('voluntarios.area') }}" class="btn btn-success">
-      Entrar na Área de Voluntários
-    </a>
-  </div>
+      @if (session('success'))
+        <div class="card mt-16">
+          <strong>{{ session('success') }}</strong>
+        </div>
+      @endif
+
+      @if ($errors->any())
+        <div class="card mt-16">
+          <ul>
+            @foreach ($errors->all() as $e)
+              <li>{{ $e }}</li>
+            @endforeach
+          </ul>
+        </div>
+      @endif
+
+      <form method="POST" action="{{ route('voluntarios.send') }}" class="mt-16">
+        @csrf
+
+        <input type="hidden" name="assunto" value="Pedido de voluntariado">
+
+        <div class="grid">
+          <article class="card">
+            <label>Nome</label>
+            <input name="nome" value="{{ old('nome', auth()->user()->name ?? '') }}" readonly>
+          </article>
+
+          <article class="card">
+            <label>Email</label>
+            <input type="email" name="email" value="{{ old('email', auth()->user()->email ?? '') }}" readonly>
+          </article>
+
+          <article class="card span-2">
+            <label>Mensagem</label>
+            <textarea name="mensagem" rows="6" placeholder="Diga-nos a sua disponibilidade para reunir." required>{{ old('mensagem') }}</textarea>
+          </article>
+        </div>
+
+        <button class="btn btn-primary mt-16" type="submit">
+          Enviar pedido de voluntariado
+        </button>
+      </form>
+    </section>
+  @else
+    <div class="card mt-16">
+      <h2 class="section-title">És Voluntário</h2>
+      <p class="muted mt-8">O teu pedido foi aceite. Usa a área de voluntários.</p>
+
+      <a href="{{ route('voluntarios.area') }}" class="btn btn-success mt-16">
+        Entrar na Área de Voluntários
+      </a>
+    </div>
   @endif
-
-
-  {{-- FORMULÁRIO DE VOLUNTARIADO --}}
-  <section id="voluntariado-form" class="hero mt-16">
-    <h2 class="section-title">Quero voluntariar-me</h2>
-
-    @if (session('success'))
-      <div class="card mt-16">
-        <strong>{{ session('success') }}</strong>
-      </div>
-    @endif
-
-    @if ($errors->any())
-      <div class="card mt-16">
-        <ul>
-          @foreach ($errors->all() as $e)
-            <li>{{ $e }}</li>
-          @endforeach
-        </ul>
-      </div>
-    @endif
-
-    <form method="POST" action="{{ route('voluntarios.send') }}" class="mt-16">
-      @csrf
-
-      {{-- assunto fixo --}}
-      <input type="hidden" name="assunto" value="Pedido de voluntariado">
-
-      <div class="grid">
-        <article class="card">
-          <label>Nome</label>
-          <input name="nome" value="{{ old('nome', auth()->user()->name ?? '') }}" readonly>
-        </article>
-
-        <article class="card">
-          <label>Email</label>
-          <input type="email" name="email" value="{{ old('email', auth()->user()->email ?? '') }}" readonly>
-        </article>
-
-        <article class="card span-2">
-          <label>Mensagem</label>
-          <textarea name="mensagem" rows="6" placeholder="Diga-nos a sua disponibilidade para reunir." required>{{ old('mensagem') }}</textarea>
-        </article>
-      </div>
-
-      <button class="btn btn-primary mt-16" type="submit">
-        Enviar pedido de voluntariado
-      </button>
-    </form>
-  </section>
-
 @endsection

@@ -21,6 +21,9 @@
          <a href="{{ route('doacoes') }}" class="btn btn-success">
            Apoiar com doação
          </a>
+         <a href="{{ route('voluntarios') }}" class="btn btn-success2">
+          Ser voluntário
+        </a>
        </div>
      </div>
 
