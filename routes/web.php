@@ -2,7 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Models\User;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvaliacaoController;
@@ -10,7 +9,6 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AdminVolunteerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DonationController;
-use App\Http\Controllers\StripeWebhookController;
 
 Route::redirect('/', '/home');
 
@@ -63,25 +61,12 @@ Route::post('/logout', [AuthController::class, 'logout'])
     ->name('logout');
 
 /* ÁREA DE VOLUNTÁRIOS (admin + voluntários) */
-Route::get('/area-voluntarios', function () {
-    // tem de estar autenticado
-    if (!auth()->check()) {
-        abort(403);
-    }
-
-    $role = (int) auth()->user()->role;
-
-    // apenas admin (1) ou voluntário (2)
-    if (!in_array($role, [User::ROLE_ADMIN, User::ROLE_VOLUNTARIO])) {
-        abort(403);
-    }
-
-    return view('pages.area_voluntarios');
-})->middleware('auth')->name('voluntarios.area');
-
+Route::view('/area-voluntarios', 'pages.area_voluntarios')
+    ->middleware(['auth', 'role:admin,voluntario'])
+    ->name('voluntarios.area');
 
 /* ADMIN */
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin', [AdminController::class, 'index'])->name('admin');
 
@@ -109,3 +94,4 @@ Route::middleware('auth')->group(function () {
     Route::post('/admin/voluntarios/{id}', [AdminVolunteerController::class, 'update'])
         ->name('admin.voluntarios.update');
 });
+

@@ -3,6 +3,15 @@
 @section('title', 'Voluntariado')
 
 @section('content')
+
+@php
+  $isAuth = auth()->check();
+  $user = $isAuth ? auth()->user() : null;
+
+  $isVolunteer = $isAuth && $user->isVolunteer();
+  $isAdmin = $isAuth && $user->isAdmin();
+@endphp
+
   {{-- HERO --}}
   <section class="hero">
     <h1>Voluntariado</h1>
@@ -55,8 +64,32 @@
     </p>
   </section>
 
-  {{-- FORMULÁRIO DE VOLUNTARIADO (só aparece se NÃO for voluntário) --}}
-  @if(!(auth()->check() && auth()->user()->isVolunteer()))
+  {{-- ATALHO PARA ÁREA DE VOLUNTÁRIOS --}}
+  @if ($isAdmin || $isVolunteer)
+    <div class="card mt-16">
+      <h2 class="section-title">
+        {{ $isAdmin ? 'Admin' : 'És Voluntário' }}
+      </h2>
+
+      <p class="muted mt-8">
+        {{ $isAdmin
+            ? 'Tens acesso à área de voluntários.'
+            : 'O teu pedido foi aceite. Usa a área de voluntários.' }}
+      </p>
+
+      <a href="{{ route('voluntarios.area') }}" class="btn btn-success mt-16">
+        Entrar na Área de Voluntários
+      </a>
+    </div>
+  @endif
+
+
+
+
+
+  {{-- FORMULÁRIO DE VOLUNTARIADO --}}
+  {{-- Mostra para user normal e admin (NÃO para voluntário) --}}
+  @if (!$isVolunteer)
     <section id="voluntariado-form" class="hero mt-16">
       <h2 class="section-title">Quero voluntariar-me</h2>
 
@@ -84,17 +117,31 @@
         <div class="grid">
           <article class="card">
             <label>Nome</label>
-            <input name="nome" value="{{ old('nome', auth()->user()->name ?? '') }}" readonly>
+            <input
+              name="nome"
+              value="{{ old('nome', $user->name ?? '') }}"
+              readonly
+            >
           </article>
 
           <article class="card">
             <label>Email</label>
-            <input type="email" name="email" value="{{ old('email', auth()->user()->email ?? '') }}" readonly>
+            <input
+              type="email"
+              name="email"
+              value="{{ old('email', $user->email ?? '') }}"
+              readonly
+            >
           </article>
 
           <article class="card span-2">
             <label>Mensagem</label>
-            <textarea name="mensagem" rows="6" placeholder="Diga-nos a sua disponibilidade para reunir." required>{{ old('mensagem') }}</textarea>
+            <textarea
+              name="mensagem"
+              rows="6"
+              placeholder="Diga-nos a sua disponibilidade para reunir."
+              required
+            >{{ old('mensagem') }}</textarea>
           </article>
         </div>
 
@@ -103,14 +150,7 @@
         </button>
       </form>
     </section>
-  @else
-    <div class="card mt-16">
-      <h2 class="section-title">És Voluntário</h2>
-      <p class="muted mt-8">O teu pedido foi aceite. Usa a área de voluntários.</p>
-
-      <a href="{{ route('voluntarios.area') }}" class="btn btn-success mt-16">
-        Entrar na Área de Voluntários
-      </a>
-    </div>
   @endif
+
+
 @endsection
