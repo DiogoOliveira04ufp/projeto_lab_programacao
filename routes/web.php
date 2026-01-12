@@ -10,6 +10,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\AdminDonationController;
 use App\Http\Controllers\DonationReceiptController;
+use App\Http\Controllers\PerfilController;
 
 Route::redirect('/', '/home');
 
@@ -64,6 +65,9 @@ Route::get('/avaliacoes', [AvaliacaoController::class, 'index'])->name('avaliaco
 Route::post('/avaliacoes', [AvaliacaoController::class, 'store'])
     ->middleware('auth')
     ->name('avaliacoes.store');
+Route::delete('/avaliacoes/{avaliacao}', [AvaliacaoController::class, 'destroy'])
+    ->middleware('auth')
+    ->name('avaliacoes.destroy');
 
 /* LOGOUT */
 Route::post('/logout', [AuthController::class, 'logout'])
@@ -111,3 +115,10 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::get('/admin/doacoes/{donation}', [AdminDonationController::class, 'show'])
         ->name('admin.doacoes.show');
 });
+
+/* PERFIL (UTILIZADORES COMUNS E VOLUNTÁRIOS) */
+    Route::middleware('auth')->group(function () {
+        Route::get('/perfil', [PerfilController::class, 'index'])->name('perfil');
+        Route::patch('/perfil', [PerfilController::class, 'update'])->name('perfil.update');
+        Route::delete('/perfil', [PerfilController::class, 'destroy'])->name('perfil.destroy');
+    });
