@@ -148,14 +148,14 @@
   </section>
 
   {{-- CRIAR GATO --}}
-  <section class="card mt-16">
+  <section class="card mt-16" id="criar-gato-section">
     <div class="actions" style="justify-content:space-between; align-items:center;">
       <h2 class="section-title" style="margin:0;">Criar Gato</h2>
       <p class="section-text muted" style="margin:0;">Adicionar um novo gato ao sistema</p>
     </div>
 
     <form
-      action="{{ route('admin.gatos.store') }}"
+      action="{{ route('admin.gatos.store') }}#criar-gato-section"
       method="POST"
       enctype="multipart/form-data"
       class="form mt-16"
@@ -164,7 +164,7 @@
 
       <div class="field">
         <span>Nome</span>
-        <input type="text" name="name" required>
+        <input type="text" name="name" value="{{ old('name') }}" required>
       </div>
 
       <div class="field">
@@ -173,17 +173,37 @@
                name="data_nascimento"
                max="{{ date('Y-m-d') }}"
                min="{{ date('Y-m-d', strtotime('-50 years')) }}"
+               value="{{ old('data_nascimento') }}"
         >
       </div>
 
-      <div class="field">
-        <span>Raça</span>
-        <input type="text" name="raca">
-      </div>
+    <div class="field">
+    <span>Raça</span>
+    <input
+        type="text"
+        name="raca"
+        list="lista-racas"
+        value="{{ old('raca') }}"
+        placeholder="Escreva para pesquisar..."
+        required
+
+        style="{{ $errors->has('raca') ? 'border: 2px solid #ff4d4d;' : '' }}"
+    >
+    <datalist id="lista-racas">
+        @foreach($racasDisponiveis as $raca)
+            <option value="{{ $raca }}">
+        @endforeach
+    </datalist>
+    @error('raca')
+        <div style="color: #363434ff; font-size: 0.85rem; margin-top: 5px; font-weight: bold; display: flex; align-items: center; gap: 5px;">
+             {{ $message }}
+        </div>
+    @enderror
+  </div>
 
       <div class="field">
         <span>Peso</span>
-        <input type="number" step="0.01" name="peso">
+        <input type="number" step="0.01" name="peso" value="{{ old('peso') }}">
       </div>
 
       <div class="field">
@@ -193,7 +213,7 @@
 
       <div class="field">
         <span>Histórico</span>
-        <textarea name="historico"></textarea>
+        <textarea name="historico" required>{{ old('historico') }}</textarea>
       </div>
 
       <div class="actions">

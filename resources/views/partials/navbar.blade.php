@@ -14,7 +14,14 @@
 
       @auth
         @if(auth()->user()->role === 1)
-          <a href="{{ route('admin') }}">Admin</a>
+          <a href="{{ route('admin') }}">
+            👤 Admin
+          </a>
+        @endif
+        @if(in_array((int) auth()->user()->role, [0, 2]))
+        <a href="{{ route('perfil') }}" class="btn">
+            👤 Perfil
+        </a>
         @endif
       @endauth
 

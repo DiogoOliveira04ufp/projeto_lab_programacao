@@ -8,6 +8,23 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
+
+    private $racasPermitidas = [
+        'Abyssinian', 'American Bobtail', 'American Bobtail Shorthair', 'American Curl',
+        'American Curl Longhair', 'American Shorthair', 'American Wirehair', 'Australian Mist',
+        'Balinese', 'Bengal','Bengal Longhair', 'Birman', 'Bombay', 'British Longhair', 'British Shorthair',
+        'Burmese', 'Burmilla','Burmilla Longhair','Chartreux', 'Chausie','Cherubim','Cornish Rex','Cymric',
+        'Devon Rex','Donskoy','Egyptian Mau','Exotic Shorthair','Havana','Highlander','Highlander Shorthair',
+        'Himalayan','Household Pet', 'Japanese Bobtail','Japanese Bobtail Longhair','Khaomanee','Korat',
+        'Kurilian Bobtail','Kurilian Bobtail Longhair','LaPerm','LaPerm Shorthair','Maine Coon',
+        'Maine Coon Polydactyl','Manx','Minuet','Minuet Longhair','Munchkin','Munchkin Longhair',
+        'Nebelung','Norwegian Forest','Ocicat','Oriental Longhair','Oriental Shorthair','Persian',
+        'Peterbald','Pixiebob','Pixiebob Longhair','Ragdoll','Russian Blue','Savannah','Scottish Fold',
+        'Scottish Fold Longhair','Scottish Straight','Scottish Straight Longhair','Selkirk Rex','Selkirk Rex Longhair',
+        'Serengeti','Siamese','Siberian','Singapura','Snowshoe','Somali','Sphynx','Tennessee Rex','Thai',
+        'Tonkinese','Toybob','Toyger','Turkish Angora','Turkish Van'
+        ];
+
     public function index()
     {
         // Só Admin (role=1) pode ver o painel de admin
@@ -23,9 +40,10 @@ class AdminController extends Controller
             ->orderBy('created_at', 'desc')
             ->paginate(20, ['*'], 'gatos_page');
 
-        return view('pages.admin', compact('users', 'gatos'));
-    }
+        $racasDisponiveis = $this->racasPermitidas;
 
+        return view('pages.admin', compact('users', 'gatos', 'racasDisponiveis'));
+    }
     public function destroy(User $user)
     {
         // Só Admin (role=1) pode eliminar utilizadores
@@ -82,13 +100,19 @@ class AdminController extends Controller
             abort(403);
         }
 
+        $racasValidas = $this->racasPermitidas;
+
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'data_nascimento' => ['nullable', 'date'],
-            'raca' => ['nullable', 'string', 'max:255'],
-            'historico' => ['nullable', 'string'],
+            'raca' => ['required', 'string', 'in:' . implode(',', $racasValidas)],
+            'historico' => ['required', 'string','min:3'],
             'peso' => ['nullable', 'numeric', 'min:0'],
             'foto' => ['nullable', 'image', 'mimes:jpg,jpeg,png,gif'],
+        ],
+        [
+            'raca.in' => 'A raça selecionada não é válida. Por favor, escolha uma raça da lista fornecida.',
+
         ]);
 
         // Este CRUD é só para gatos
