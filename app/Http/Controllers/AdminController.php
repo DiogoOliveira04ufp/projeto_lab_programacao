@@ -58,6 +58,12 @@ class AdminController extends Controller
                 ->with('error', 'Não podes eliminar o teu próprio utilizador.');
         }
 
+        Animal::where('user_id', $user->id)->update([
+            'user_id' => null,
+            'adotado' => false,
+            'status'  => 'pendente'
+        ]);
+
         $user->delete();
 
         return redirect()

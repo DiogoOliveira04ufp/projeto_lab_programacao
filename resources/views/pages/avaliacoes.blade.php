@@ -38,7 +38,7 @@
   @auth
     <section class="card mt-16" id="form">
       <h2 class="section-title">
-        {{ isset($minhaAvaliacao) ? '📝 Editar ou 🗑️ Apagar a minha avaliação' : '✍️ Deixar comentário' }}
+        {{ isset($minhaAvaliacao) ? '📝 Editar ou  Apagar a minha avaliação' : '✍️ Deixar comentário' }}
       </h2>
 
       @if(isset($minhaAvaliacao))
@@ -98,7 +98,7 @@
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn" style="background-color: #ff4d4d; color: white; border: none; padding: 10px 15px; border-radius: 4px; cursor: pointer;">
-                        🗑️ Apagar Comentário
+                         Apagar Comentário
                     </button>
                 </form>
             @endif

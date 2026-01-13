@@ -25,19 +25,6 @@
         @enderror
       </label>
 
-      <label class="field">
-        <span>Nome de Utilizador</span>
-        <input
-          type="text"
-          id="user"
-          name="user"
-          placeholder="exemplo1234"
-          required
-        >
-        @error('name')
-          <small class="error">{{ $message }}</small>
-        @enderror
-      </label>
 
       <label class="field">
         <span>E-mail</span>

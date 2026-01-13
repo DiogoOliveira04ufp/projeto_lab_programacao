@@ -9,8 +9,10 @@ use App\Http\Controllers\AdminVolunteerController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DonationController;
 use App\Http\Controllers\AdminDonationController;
+use App\Http\Controllers\AdminAdocaoController;
 use App\Http\Controllers\DonationReceiptController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\VoluntarioController;
 
 Route::redirect('/', '/home');
 
@@ -75,9 +77,15 @@ Route::post('/logout', [AuthController::class, 'logout'])
     ->name('logout');
 
 /* ÁREA DE VOLUNTÁRIOS (admin + voluntários) */
-Route::view('/area-voluntarios', 'pages.area_voluntarios')
+Route::get('/area-voluntarios', [VoluntarioController::class, 'areaVoluntarios'])
     ->middleware(['auth', 'role:admin,voluntario'])
     ->name('voluntarios.area');
+Route::post('/chat/enviar', [VoluntarioController::class, 'enviarMensagem'])
+    ->middleware(['auth', 'role:admin,voluntario'])
+    ->name('chat.enviar');
+Route::delete('/chat/eliminar/{mensagem}', [VoluntarioController::class, 'eliminarMensagem'])
+    ->middleware(['auth', 'role:admin,voluntario'])
+    ->name('chat.eliminar');
 
 /* ADMIN */
 Route::middleware(['auth', 'role:admin'])->group(function () {
@@ -114,11 +122,22 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
 
     Route::get('/admin/doacoes/{donation}', [AdminDonationController::class, 'show'])
         ->name('admin.doacoes.show');
+
+    /* ADOTAR (ADMIN) */
+    Route::get('/admin/adocoes', [AdminAdocaoController::class, 'index'])->name('admin.adocoes.index');
+    Route::patch('/admin/adocoes/{animal}/status', [AdminAdocaoController::class, 'updateStatus'])->name('admin.adocoes.update');
 });
 
 /* PERFIL (UTILIZADORES COMUNS E VOLUNTÁRIOS) */
-    Route::middleware('auth')->group(function () {
-        Route::get('/perfil', [PerfilController::class, 'index'])->name('perfil');
-        Route::patch('/perfil', [PerfilController::class, 'update'])->name('perfil.update');
-        Route::delete('/perfil', [PerfilController::class, 'destroy'])->name('perfil.destroy');
-    });
+Route::middleware(['auth', 'role:user,voluntario'])->group(function () {
+    Route::get('/perfil', [PerfilController::class, 'index'])->name('perfil');
+    Route::patch('/perfil', [PerfilController::class, 'update'])->name('perfil.update');
+    Route::delete('/perfil', [PerfilController::class, 'destroy'])->name('perfil.destroy');
+
+/* ADOTAR GATO */
+    Route::post('/perfil/cancelar/{animal}', [PerfilController::class, 'cancelarAdocao'])->name('perfil.cancelar_adocao');
+
+});
+
+ Route::post('/gatos/{animal}/adotar', [PerfilController::class, 'adotar'])->name('gatos.adotar');
+

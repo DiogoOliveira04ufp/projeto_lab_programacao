@@ -19,5 +19,12 @@ class Animal extends Model
         'historico',
         'foto',
         'peso',
+        'adotado',
+        'user_id',
+        'status'
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

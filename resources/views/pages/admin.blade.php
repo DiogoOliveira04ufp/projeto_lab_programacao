@@ -36,6 +36,7 @@
     <div class="actions">
       <a href="{{ route('admin.voluntarios.index') }}" class="btn btn-outline">Gerir Voluntários</a>
       <a href="{{ route('admin.doacoes.index') }}" class="btn btn-outline">Gerir Doações</a>
+      <a href="{{ route('admin.adocoes.index') }}" class="btn btn-outline">Visualizar Pedidos de Adoção</a>
     </div>
   </section>
 
