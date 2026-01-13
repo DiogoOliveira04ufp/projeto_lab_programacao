@@ -14,7 +14,7 @@
   </section>
 
   {{-- LISTA DE GATOS --}}
-  @if($gatos->isEmpty())
+  @if($gatos->where('adotado', false)->isEmpty())
     <section class="card">
       <p class="muted m-0">Nenhum gato disponível no momento.</p>
     </section>
@@ -22,7 +22,7 @@
     <section class="grid">
       @foreach($gatos as $gato)
         <article class="card">
-          
+
           {{-- FOTO --}}
           @if($gato->foto)
             <img
@@ -58,6 +58,18 @@
               {{ \Illuminate\Support\Str::limit($gato->historico, 140) }}
             </p>
           @endif
+
+        {-- ADOTAR BOTÃO --}
+        @auth
+          @if(in_array((int)auth()->user()->role, [0, 2]))
+              <form action="{{ route('gatos.adotar', $gato->id) }}" method="POST" class="mt-16">
+                @csrf
+                <button type="submit" class="btn btn-primary" style="width: 100%; background-color: #e879f9; border: none; padding: 10px; cursor: pointer;">
+                   Adotar {{ $gato->name }}
+                </button>
+              </form>
+            @endif
+          @endauth
 
         </article>
       @endforeach

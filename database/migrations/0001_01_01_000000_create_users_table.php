@@ -46,6 +46,11 @@ return new class extends Migration
             $table->text('historico');
             $table->string('foto')->nullable();
             $table->float('peso', 8, 2)->default(0);
+
+            $table->boolean('adotado')->default(false);
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->string('status')->default('pendente');
+
             $table->timestamps();
         });
 
