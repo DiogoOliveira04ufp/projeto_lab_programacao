@@ -59,7 +59,7 @@
             </p>
           @endif
 
-        {-- ADOTAR BOTÃO --}
+        {{-- ADOTAR BOTÃO --}}
         @auth
           @if(in_array((int)auth()->user()->role, [0, 2]))
               <form action="{{ route('gatos.adotar', $gato->id) }}" method="POST" class="mt-16">
