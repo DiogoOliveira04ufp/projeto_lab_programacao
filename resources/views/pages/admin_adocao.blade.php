@@ -10,14 +10,14 @@
         <a href="{{ route('home') }}" class="btn btn-outline"> Início</a>
     </div>
 </section>
-{-- FEEDBACK --}
+{{-- FEEDBACK --}}
 @if(session('success'))
     <div style="background: #d4edda; color: #1b7a31; padding: 15px; border-radius: 8px; margin-top: 20px;">
         {{ session('success') }}
     </div>
 @endif
 
-{-- TABELA PEDIDOS DE ADOÇÃO AGUARDAM RESPOSTA DO ADMIN --}
+{{-- TABELA PEDIDOS DE ADOÇÃO AGUARDAM RESPOSTA DO ADMIN --}}
 <section class="card mt-16">
     <table style="width:100%; border-collapse:collapse;">
         <thead>

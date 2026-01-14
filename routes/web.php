@@ -139,5 +139,6 @@ Route::middleware(['auth', 'role:user,voluntario'])->group(function () {
 
 });
 
- Route::post('/gatos/{animal}/adotar', [PerfilController::class, 'adotar'])->name('gatos.adotar');
-
+ Route::post('/gatos/{animal}/adotar', [PerfilController::class, 'adotar'])
+    ->middleware(['auth', 'role:user,voluntario'])
+    ->name('gatos.adotar');
